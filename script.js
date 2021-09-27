@@ -11,19 +11,24 @@ current.textContent = moment().format("dddd, MMMM Do");
 function checkTime() {
   for (i = 0; i < hour.length; i++) {
     //Set Format
-    var format = "hh:mm";
+    var format = "h:mm:a";
     //Convert String to Number
     var hourToNum = parseInt(hour[i].id);
+
+    console.log(hourToNum);
     //Compensate for Timespan
-    var nextHour = hourToNum + 0.59;
+    var nextHour = hourToNum + 0.59 + "pm";
     //Set Start and End Time
-    var startTime = moment(`0${hour[i].id}`, format);
-    var EndTime = moment(`0${nextHour}`, format);
+    var startTime = moment(`${hour[i].id}`, format);
+    var EndTime = moment(startTime).add(59, "m");
     //Determine Background Color
     var currentTime = moment();
+    console.log(currentTime);
+    console.log(EndTime);
+    console.log(startTime);
     if (currentTime.isBetween(startTime, EndTime)) {
       hour[i].setAttribute("class", " col-10 present description");
-    } else if (currentTime < EndTime) {
+    } else if (currentTime.isBefore(EndTime)) {
       hour[i].setAttribute("class", "col-10 future description");
     } else {
       hour[i].setAttribute("class", "col-10 past description");
