@@ -1,7 +1,10 @@
 //Set Variables
 var current = document.getElementById("currentDay");
 var hour = document.querySelectorAll(".description");
-console.log(hour);
+var text = document.querySelector(".text");
+var saveBtn = document.querySelector(".saveBtn");
+var container = document.querySelector(".container");
+console.log(text.textContent);
 
 //Add Current Date upon page load
 current.textContent = moment().format("dddd, MMMM Do");
@@ -33,3 +36,10 @@ function checkTime() {
   }
 }
 checkTime();
+
+container.addEventListener("click", function (event) {
+  // event.preventDefault();
+  if (event.target.className === "fas fa-save fa-2x") {
+    console.log("heyooooo");
+  }
+});
