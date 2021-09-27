@@ -4,7 +4,6 @@ var hour = document.querySelectorAll(".description");
 var text = document.querySelector(".text");
 var saveBtn = document.querySelector(".saveBtn");
 var container = document.querySelector(".container");
-console.log(text.textContent);
 
 //Add Current Date upon page load
 current.textContent = moment().format("dddd, MMMM Do");
@@ -20,12 +19,9 @@ function checkTime() {
     //Set Start and End Time
     var startTime = moment(`0${hour[i].id}`, format);
     var EndTime = moment(`0${nextHour}`, format);
-    console.log(startTime);
-    console.log(EndTime);
     //Determine Background Color
     var currentTime = moment();
     if (currentTime.isBetween(startTime, EndTime)) {
-      console.log("tooooo");
       hour[i].setAttribute("class", " col-10 present description");
     } else if (currentTime < EndTime) {
       console.log("THis is working");
@@ -37,9 +33,13 @@ function checkTime() {
 }
 checkTime();
 
+//Save Calendar Items
 container.addEventListener("click", function (event) {
-  // event.preventDefault();
   if (event.target.className === "fas fa-save fa-2x") {
-    console.log("heyooooo");
+    var newItem = event.target.parentElement.previousElementSibling.textContent;
+    var item = event.target.parentElement.previousElementSibling.id;
+    localStorage.setItem(`${item}-calendarEvent`, newItem);
   }
 });
+
+//Render Calendar Items
