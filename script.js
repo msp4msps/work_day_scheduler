@@ -24,7 +24,6 @@ function checkTime() {
     if (currentTime.isBetween(startTime, EndTime)) {
       hour[i].setAttribute("class", " col-10 present description");
     } else if (currentTime < EndTime) {
-      console.log("THis is working");
       hour[i].setAttribute("class", "col-10 future description");
     } else {
       hour[i].setAttribute("class", "col-10 past description");
@@ -38,8 +37,17 @@ container.addEventListener("click", function (event) {
   if (event.target.className === "fas fa-save fa-2x") {
     var newItem = event.target.parentElement.previousElementSibling.textContent;
     var item = event.target.parentElement.previousElementSibling.id;
-    localStorage.setItem(`${item}-calendarEvent`, newItem);
+    localStorage.setItem(`${item}-calendar`, newItem);
   }
 });
 
 //Render Calendar Items
+function init() {
+  for (i = 0; i < hour.length; i++) {
+    var id = parseInt(hour[i].id);
+    var calendar = localStorage.getItem(`${id}-calendar`);
+    hour[i].lastElementChild.textContent = calendar;
+  }
+}
+
+init();
